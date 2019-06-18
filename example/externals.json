@@ -3,14 +3,14 @@
         "branch": "master",
         "ref": "HEAD",
         "targets": {
-            "./": ["./miniboost"]
+            "./": ["./externals/miniboost"]
         }
     },
     "https://github.com/felixqin/zbuild.git" : {
         "branch": "master",
         "ref": "HEAD",
         "targets": {
-            "./": ["./zbuild"]
+            "./": ["./externals/zbuild"]
         }
     }
 }
