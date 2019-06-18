@@ -1,0 +1,16 @@
+{
+    "https://github.com/felixqin/miniboost.git" : {
+        "branch": "master",
+        "ref": "HEAD",
+        "targets": {
+            "./": ["./miniboost"]
+        }
+    },
+    "https://github.com/felixqin/zbuild.git" : {
+        "branch": "master",
+        "ref": "HEAD",
+        "targets": {
+            "./": ["./zbuild"]
+        }
+    }
+}

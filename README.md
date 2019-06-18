@@ -20,6 +20,18 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/cross-cpm/xrepo/master/insta
 xrepo up
 ```
 
+### pull
+
+```shell
+xrepo pull
+```
+
+### push
+
+```shell
+xrepo push
+```
+
 ### status
 
 ```shell
