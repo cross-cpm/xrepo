@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"log"
 	"os"
 	"os/exec"
 )
@@ -24,12 +25,14 @@ func run_shell_in_dir(dir string, name string, args ...string) error {
 		return err
 	}
 
-	err = run_shell(name, args...)
-	if err != nil {
-		return err
-	}
+	defer func() {
+		err := os.Chdir(cwd)
+		if err != nil {
+			log.Fatal("cannot return cwd!", err)
+		}
+	}()
 
-	err = os.Chdir(cwd)
+	err = run_shell(name, args...)
 	if err != nil {
 		return err
 	}
