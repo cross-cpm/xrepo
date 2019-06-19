@@ -15,7 +15,7 @@ func newGitExecutor(workdir string, url string, info *Info) *gitExecutor {
 	return &gitExecutor{url, workdir, info}
 }
 
-func (e *gitExecutor) Update() error {
+func (e *gitExecutor) Checkout() error {
 	//log.Println("workdir", e.workdir)
 	//log.Println("info", e.info)
 	if _, err := os.Stat(e.workdir); os.IsNotExist(err) {

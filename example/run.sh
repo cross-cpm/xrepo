@@ -1,5 +1,5 @@
 #!/bin/sh
 
 cd `dirname $0`
-go run xrepo up
+go run xrepo checkout
 

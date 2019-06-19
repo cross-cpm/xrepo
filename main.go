@@ -24,22 +24,22 @@ func main() {
 	log.Println("externals file:", extfile)
 
 	switch cmd {
-	case "up":
-		doUpCmd(extfile)
+	case "checkout":
+		doCheckout(extfile)
+	case "co":
+		doCheckout(extfile)
 	default:
 		dumpUsage()
 	}
 }
 
-func doUpCmd(extfile string) {
-	log.Println("up")
-
+func doCheckout(extfile string) {
 	externals := repo.NewExternals(extfile)
 	externals.Load()
 	externals.Foreach(func(url string, info *repo.Info) {
-		log.Println("update", url, "...")
+		log.Println("checkout", url, "...")
 		e := repo.NewExecutor(url, info)
-		err := e.Update()
+		err := e.Checkout()
 		if err != nil {
 			log.Fatal(err)
 		}
