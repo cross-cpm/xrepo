@@ -13,15 +13,20 @@ type Info struct {
 }
 
 type externals struct {
-	infos map[string]*Info
+	filename string
+	infos    map[string]*Info
+	workdirs map[string]string
 }
 
-func NewExternals() *externals {
-	return &externals{}
+func NewExternals(filename string) *externals {
+	return &externals{
+		filename: filename,
+		workdirs: make(map[string]string),
+	}
 }
 
-func (e *externals) Load(filename string) error {
-	f, err := os.Open(filename)
+func (e *externals) Load() error {
+	f, err := os.Open(e.filename)
 	if err != nil {
 		log.Println("open file failed!", err)
 		return err
@@ -34,17 +39,26 @@ func (e *externals) Load(filename string) error {
 		return err
 	}
 
-	log.Println("debug externals:", e.infos)
-	return nil
-}
-
-func (e *externals) Save(filename string) error {
-	return nil
-}
-
-func (e *externals) Foreach(fn func(url string, info *Info)) error {
 	for url, info := range e.infos {
-		fn(url, info)
+		for src, dsts := range info.Targets {
+			if src == "./" {
+				e.workdirs[url] = dsts[0]
+			}
+		}
+	}
+
+	// log.Println("debug externals:", e.infos)
+	// log.Println("debug workdirs:", e.workdirs)
+	return nil
+}
+
+func (e *externals) Save() error {
+	return nil
+}
+
+func (e *externals) Foreach(fn func(url string, workdir string, info *Info)) error {
+	for url, info := range e.infos {
+		fn(url, e.workdirs[url], info)
 	}
 
 	return nil

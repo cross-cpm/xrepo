@@ -34,10 +34,14 @@ func main() {
 func doUpCmd(extfile string) {
 	log.Println("up")
 
-	externals := repo.NewExternals()
-	externals.Load(extfile)
-	externals.Foreach(func(url string, info *repo.Info) {
+	externals := repo.NewExternals(extfile)
+	externals.Load()
+	externals.Foreach(func(url string, workdir string, info *repo.Info) {
 		log.Println("update", url, "...")
-		log.Println("info", info)
+		e := repo.NewExecutor(url, workdir, info)
+		err := e.Update()
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 }
