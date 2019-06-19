@@ -36,4 +36,8 @@ func doUpCmd(extfile string) {
 
 	externals := repo.NewExternals()
 	externals.Load(extfile)
+	externals.Foreach(func(url string, info *repo.Info) {
+		log.Println("update", url, "...")
+		log.Println("info", info)
+	})
 }

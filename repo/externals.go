@@ -6,14 +6,14 @@ import (
 	"os"
 )
 
-type repoDefine struct {
+type Info struct {
 	Branch  string              `json:"branch"`
 	Ref     string              `json:"ref"`
 	Targets map[string][]string `json:"targets"`
 }
 
 type externals struct {
-	defines map[string]repoDefine
+	infos map[string]*Info
 }
 
 func NewExternals() *externals {
@@ -28,13 +28,13 @@ func (e *externals) Load(filename string) error {
 	}
 	defer f.Close()
 
-	err = json.NewDecoder(f).Decode(&e.defines)
+	err = json.NewDecoder(f).Decode(&e.infos)
 	if err != nil {
 		log.Println("decode externals json failed!", err)
 		return err
 	}
 
-	log.Println("debug externals:", e.defines)
+	log.Println("debug externals:", e.infos)
 	return nil
 }
 
@@ -42,6 +42,10 @@ func (e *externals) Save(filename string) error {
 	return nil
 }
 
-func (e *externals) ForEach() error {
+func (e *externals) Foreach(fn func(url string, info *Info)) error {
+	for url, info := range e.infos {
+		fn(url, info)
+	}
+
 	return nil
 }
