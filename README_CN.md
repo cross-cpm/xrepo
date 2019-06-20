@@ -1,18 +1,18 @@
-English | [中文](README_CN.md)
+[English](README.md) | 中文
 
 # xrepo
 
 xrepo is a multi-repo management for a large project
 
-## Quick Start Guide
+## 快速开始
 
-### Install
+### 安装
 
 ```shell
 go get -u -v github.com/cross-cpm/xrepo
 ```
 
-### Usage
+### 使用
 
 ```shell
 xrepo help
@@ -22,7 +22,7 @@ xrepo help
 xrepo checkout
 ```
 
-## More command
+## 更多命令
 
 ```shell
 xrepo pull
