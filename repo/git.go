@@ -71,3 +71,21 @@ func (e *gitExecutor) update_checkout() error {
 
 	return nil
 }
+
+func (e *gitExecutor) Pull() error {
+	err := run_shell_in_dir(e.workdir, "git", "pull")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (e *gitExecutor) Revision() (string, error) {
+	err := run_shell_in_dir(e.workdir, "git", "rev-parse", "HEAD")
+	if err != nil {
+		return "", err
+	}
+
+	return "", nil
+}

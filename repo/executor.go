@@ -8,5 +8,7 @@ func NewExecutor(url string, info *Info) *gitExecutor {
 		}
 	}
 
+	// TODO: check vcs type then return executor of git or svn
+
 	return newGitExecutor(workdir, url, info)
 }

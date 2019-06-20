@@ -1,7 +1,7 @@
 {
     "https://github.com/felixqin/miniboost.git" : {
         "branch": "master",
-        "ref": "HEAD",
+        "ref": "db38c9437d96eac5604376f6e6a16d297f865803",
         "targets": {
             "./": ["./externals/miniboost"]
         }

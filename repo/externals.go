@@ -46,6 +46,10 @@ func (e *externals) Save() error {
 	return nil
 }
 
+func (e *externals) Count() int {
+	return len(e.infos)
+}
+
 func (e *externals) Foreach(fn func(url string, info *Info)) error {
 	for url, info := range e.infos {
 		fn(url, info)
