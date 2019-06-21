@@ -17,10 +17,15 @@ func main() {
 	var (
 		extfile = "externals.json"
 		cmd     string
+		subcmd  string
 	)
 
 	if len(os.Args) > 1 {
 		cmd = os.Args[1]
+	}
+
+	if len(os.Args) > 2 {
+		subcmd = os.Args[2]
 	}
 
 	log.Println("externals file:", extfile)
@@ -33,7 +38,10 @@ func main() {
 	case "pull":
 		doPull(extfile)
 	case "rev":
-		doRevList(extfile)
+		switch subcmd {
+		case "list":
+			doRevList(extfile)
+		}
 	default:
 		dumpUsage()
 	}

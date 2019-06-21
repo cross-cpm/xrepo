@@ -41,7 +41,7 @@ xrepo checkout
 
 此例中，目录树结果如下：
 
-```
+```text
 <workdir>
     |- externals
     |   |- miniboost

@@ -2,6 +2,7 @@ package repo
 
 import (
 	"os"
+	"strings"
 )
 
 type gitExecutor struct {
@@ -26,18 +27,18 @@ func (e *gitExecutor) Checkout() error {
 }
 
 func (e *gitExecutor) initial_checkout() error {
-	err := run_shell("git", "clone", e.url, e.workdir)
+	err := shell_run("git", "clone", e.url, e.workdir)
 	if err != nil {
 		return err
 	}
 
 	if e.info.Ref == "HEAD" {
-		err := run_shell_in_dir(e.workdir, "git", "checkout", e.info.Branch)
+		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 		if err != nil {
 			return err
 		}
 	} else {
-		err := run_shell_in_dir(e.workdir, "git", "checkout", e.info.Ref)
+		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Ref)
 		if err != nil {
 			return err
 		}
@@ -48,22 +49,22 @@ func (e *gitExecutor) initial_checkout() error {
 
 func (e *gitExecutor) update_checkout() error {
 	if e.info.Ref == "HEAD" {
-		err := run_shell_in_dir(e.workdir, "git", "checkout", e.info.Branch)
+		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 		if err != nil {
 			return err
 		}
 
-		err = run_shell_in_dir(e.workdir, "git", "pull")
+		err = shell_run_in_dir(e.workdir, "git", "pull")
 		if err != nil {
 			return err
 		}
 	} else {
-		err := run_shell_in_dir(e.workdir, "git", "fetch")
+		err := shell_run_in_dir(e.workdir, "git", "fetch")
 		if err != nil {
 			return err
 		}
 
-		err = run_shell_in_dir(e.workdir, "git", "checkout", e.info.Ref)
+		err = shell_run_in_dir(e.workdir, "git", "checkout", e.info.Ref)
 		if err != nil {
 			return err
 		}
@@ -73,7 +74,7 @@ func (e *gitExecutor) update_checkout() error {
 }
 
 func (e *gitExecutor) Pull() error {
-	err := run_shell_in_dir(e.workdir, "git", "pull")
+	err := shell_run_in_dir(e.workdir, "git", "pull")
 	if err != nil {
 		return err
 	}
@@ -82,10 +83,10 @@ func (e *gitExecutor) Pull() error {
 }
 
 func (e *gitExecutor) Revision() (string, error) {
-	err := run_shell_in_dir(e.workdir, "git", "rev-parse", "HEAD")
+	rev, err := shell_get_in_dir(e.workdir, "git", "rev-parse", "HEAD")
 	if err != nil {
 		return "", err
 	}
 
-	return "", nil
+	return strings.Trim(rev, " \r\n"), err
 }

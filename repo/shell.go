@@ -5,7 +5,11 @@ import (
 	"os/exec"
 )
 
-func run_shell_in_dir(dir string, name string, args ...string) error {
+func shell_run(name string, args ...string) error {
+	return shell_run_in_dir("", name, args...)
+}
+
+func shell_run_in_dir(dir string, name string, args ...string) error {
 	cmd := exec.Command(name, args...)
 	cmd.Dir = dir
 	cmd.Stdin = os.Stdin
@@ -14,6 +18,13 @@ func run_shell_in_dir(dir string, name string, args ...string) error {
 	return cmd.Run()
 }
 
-func run_shell(name string, args ...string) error {
-	return run_shell_in_dir("", name, args...)
+func shell_get_in_dir(dir string, name string, args ...string) (string, error) {
+	cmd := exec.Command(name, args...)
+	cmd.Dir = dir
+	output, err := cmd.Output()
+	if err != nil {
+		return "", nil
+	}
+
+	return string(output), nil
 }
