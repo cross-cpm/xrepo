@@ -74,7 +74,12 @@ func (e *gitExecutor) update_checkout() error {
 }
 
 func (e *gitExecutor) Pull() error {
-	err := shell_run_in_dir(e.workdir, "git", "pull")
+	err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
+	if err != nil {
+		return err
+	}
+
+	err = shell_run_in_dir(e.workdir, "git", "pull")
 	if err != nil {
 		return err
 	}
