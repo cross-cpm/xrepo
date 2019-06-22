@@ -1,16 +1,20 @@
 {
-    "https://github.com/felixqin/miniboost.git" : {
+    "https://github.com/felixqin/miniboost.git": {
         "branch": "master",
         "ref": "db38c9437d96eac5604376f6e6a16d297f865803",
         "targets": {
-            "./": ["./externals/miniboost"]
+            "./": [
+                "./externals/miniboost"
+            ]
         }
     },
-    "https://github.com/felixqin/zbuild.git" : {
+    "https://github.com/felixqin/zbuild.git": {
         "branch": "master",
         "ref": "HEAD",
         "targets": {
-            "./": ["./externals/zbuild"]
+            "./": [
+                "./externals/zbuild"
+            ]
         }
     }
 }
