@@ -57,7 +57,7 @@ xrepo checkout
 xrepo help
 ```
 
-全部外部仓库更新到最新版本
+全部外部仓库更新到最新版本，并更新 externals.json 配置文件中的版本号
 
 ```shell
 xrepo pull

@@ -43,6 +43,22 @@ func (e *externals) Load() error {
 }
 
 func (e *externals) Save() error {
+	f, err := os.Create(e.filename)
+	if err != nil {
+		log.Println("open file failed!", err)
+		return err
+	}
+	defer f.Close()
+
+	enc := json.NewEncoder(f)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", "    ")
+	err = enc.Encode(&e.infos)
+	if err != nil {
+		log.Println("encode to externals json failed!", err)
+		return err
+	}
+
 	return nil
 }
 

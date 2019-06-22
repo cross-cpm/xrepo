@@ -73,18 +73,18 @@ func (e *gitExecutor) update_checkout() error {
 	return nil
 }
 
-func (e *gitExecutor) Pull() error {
+func (e *gitExecutor) Pull() (string, error) {
 	err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	err = shell_run_in_dir(e.workdir, "git", "pull")
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	return nil
+	return e.Revision()
 }
 
 func (e *gitExecutor) Revision() (string, error) {
@@ -94,4 +94,8 @@ func (e *gitExecutor) Revision() (string, error) {
 	}
 
 	return strings.Trim(rev, " \r\n"), err
+}
+
+func (e *gitExecutor) Push() error {
+	return shell_run_in_dir(e.workdir, "git", "push")
 }
