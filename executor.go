@@ -1,4 +1,4 @@
-package repo
+package main
 
 func NewExecutor(url string, info *Info) *gitExecutor {
 	var workdir string

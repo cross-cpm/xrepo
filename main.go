@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"xrepo/repo"
 )
 
 func dumpUsage() {
@@ -48,14 +47,14 @@ func main() {
 }
 
 func doCheckout(extfile string) {
-	externals := repo.NewExternals(extfile)
+	externals := NewExternals(extfile)
 	externals.Load()
 	idx := 0
 	count := externals.Count()
-	externals.Foreach(func(url string, info *repo.Info) {
+	externals.Foreach(func(url string, info *Info) {
 		idx = idx + 1
 		log.Printf("[%d/%d] checkout %s ...\n", idx, count, url)
-		e := repo.NewExecutor(url, info)
+		e := NewExecutor(url, info)
 		err := e.Checkout()
 		if err != nil {
 			log.Fatal(err)
@@ -64,14 +63,14 @@ func doCheckout(extfile string) {
 }
 
 func doPull(extfile string) {
-	externals := repo.NewExternals(extfile)
+	externals := NewExternals(extfile)
 	externals.Load()
 	idx := 0
 	count := externals.Count()
-	externals.Foreach(func(url string, info *repo.Info) {
+	externals.Foreach(func(url string, info *Info) {
 		idx = idx + 1
 		log.Printf("[%d/%d] pull %s ...\n", idx, count, url)
-		e := repo.NewExecutor(url, info)
+		e := NewExecutor(url, info)
 		err := e.Pull()
 		if err != nil {
 			log.Fatal(err)
@@ -80,14 +79,14 @@ func doPull(extfile string) {
 }
 
 func doRevList(extfile string) {
-	externals := repo.NewExternals(extfile)
+	externals := NewExternals(extfile)
 	externals.Load()
 	idx := 0
 	count := externals.Count()
-	externals.Foreach(func(url string, info *repo.Info) {
+	externals.Foreach(func(url string, info *Info) {
 		idx = idx + 1
 		log.Printf("[%d/%d] %s reversion:\n", idx, count, url)
-		e := repo.NewExecutor(url, info)
+		e := NewExecutor(url, info)
 		ref, err := e.Revision()
 		if err != nil {
 			log.Fatal(err)
