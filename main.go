@@ -14,10 +14,14 @@ func main() {
 
 	//var apppath = filepath.Dir(os.Args[0])
 	var (
-		extfile = "externals.json"
+		extfile = "externals.yaml"
 		cmd     string
 		subcmd  string
 	)
+
+	if _, err := os.Stat(extfile); os.IsNotExist(err) {
+		extfile = "externals.json"
+	}
 
 	if len(os.Args) > 1 {
 		cmd = os.Args[1]

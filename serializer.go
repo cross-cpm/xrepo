@@ -1,5 +1,10 @@
 package main
 
+import (
+	"log"
+	"path/filepath"
+)
+
 type RepoInfo struct {
 	Cvs     string              `json:"cvs"`
 	Branch  string              `json:"branch"`
@@ -15,5 +20,15 @@ type Serializer interface {
 }
 
 func NewSerializer(filename string) Serializer {
-	return NewJsonSerializer(filename)
+	extname := filepath.Ext(filename)
+	switch extname {
+	case ".yaml":
+		return NewYamlSerializer(filename)
+	case ".json":
+		return NewJsonSerializer(filename)
+	default:
+		log.Fatal("unsupport ext name:", extname)
+	}
+
+	return nil
 }

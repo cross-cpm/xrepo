@@ -5,8 +5,8 @@ import "log"
 type Cvs interface {
 	Checkout() error
 	Pull() (string, error)
-	Revision() (string, error)
 	Push() error
+	Revision() (string, error)
 }
 
 func NewCvs(url string, info *RepoInfo) Cvs {
@@ -17,9 +17,15 @@ func NewCvs(url string, info *RepoInfo) Cvs {
 		}
 	}
 
-	if info.Cvs == "" || info.Cvs == "git" {
+	if info.Cvs == "" {
+		// FIXME: parse cvs from url
+		info.Cvs = "git"
+	}
+
+	switch info.Cvs {
+	case "git":
 		return NewGitCvs(workdir, url, info)
-	} else {
+	default:
 		log.Fatal("unsupport cvs type:", info.Cvs)
 	}
 
