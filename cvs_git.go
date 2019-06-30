@@ -5,18 +5,18 @@ import (
 	"strings"
 )
 
-type gitExecutor struct {
+type gitCvs struct {
 	url     string
 	workdir string
-	info    *Info
+	info    *RepoInfo
 }
 
-func newGitExecutor(workdir string, url string, info *Info) *gitExecutor {
+func NewGitCvs(workdir string, url string, info *RepoInfo) *gitCvs {
 	// TODO: check url branck ref invald
-	return &gitExecutor{url, workdir, info}
+	return &gitCvs{url, workdir, info}
 }
 
-func (e *gitExecutor) Checkout() error {
+func (e *gitCvs) Checkout() error {
 	//log.Println("workdir", e.workdir)
 	//log.Println("info", e.info)
 	if _, err := os.Stat(e.workdir); os.IsNotExist(err) {
@@ -26,7 +26,7 @@ func (e *gitExecutor) Checkout() error {
 	}
 }
 
-func (e *gitExecutor) initial_checkout() error {
+func (e *gitCvs) initial_checkout() error {
 	err := shell_run("git", "clone", e.url, e.workdir)
 	if err != nil {
 		return err
@@ -47,7 +47,7 @@ func (e *gitExecutor) initial_checkout() error {
 	return nil
 }
 
-func (e *gitExecutor) update_checkout() error {
+func (e *gitCvs) update_checkout() error {
 	if e.info.Ref == "HEAD" {
 		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 		if err != nil {
@@ -73,7 +73,7 @@ func (e *gitExecutor) update_checkout() error {
 	return nil
 }
 
-func (e *gitExecutor) Pull() (string, error) {
+func (e *gitCvs) Pull() (string, error) {
 	err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 	if err != nil {
 		return "", err
@@ -87,7 +87,7 @@ func (e *gitExecutor) Pull() (string, error) {
 	return e.Revision()
 }
 
-func (e *gitExecutor) Revision() (string, error) {
+func (e *gitCvs) Revision() (string, error) {
 	rev, err := shell_get_in_dir(e.workdir, "git", "rev-parse", "HEAD")
 	if err != nil {
 		return "", err
@@ -96,6 +96,6 @@ func (e *gitExecutor) Revision() (string, error) {
 	return strings.Trim(rev, " \r\n"), err
 }
 
-func (e *gitExecutor) Push() error {
+func (e *gitCvs) Push() error {
 	return shell_run_in_dir(e.workdir, "git", "push")
 }
