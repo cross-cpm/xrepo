@@ -1,6 +1,9 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"log"
+)
 
 func cliCheckout(extfile string) {
 	externals := NewExternals(extfile)
@@ -9,7 +12,7 @@ func cliCheckout(extfile string) {
 	count := externals.Count()
 	externals.Foreach(func(url string, info *RepoInfo) {
 		idx = idx + 1
-		log.Printf("=== [%d/%d] checkout %s ...\n", idx, count, url)
+		fmt.Printf("=== [%d/%d] checkout %s ...\n", idx, count, url)
 		e := NewCvs(url, info)
 		err := e.Checkout()
 		if err != nil {
@@ -25,7 +28,7 @@ func cliPull(extfile string) {
 	count := externals.Count()
 	externals.Foreach(func(url string, info *RepoInfo) {
 		idx = idx + 1
-		log.Printf("=== [%d/%d] pull %s ...\n", idx, count, url)
+		fmt.Printf("=== [%d/%d] pull %s ...\n", idx, count, url)
 		e := NewCvs(url, info)
 		ref, err := e.Pull()
 		if err != nil {
@@ -50,7 +53,7 @@ func cliPush(extfile string) {
 	count := externals.Count()
 	externals.Foreach(func(url string, info *RepoInfo) {
 		idx = idx + 1
-		log.Printf("=== [%d/%d] push %s ...\n", idx, count, url)
+		fmt.Printf("=== [%d/%d] push %s ...\n", idx, count, url)
 		e := NewCvs(url, info)
 		err := e.Push()
 		if err != nil {

@@ -1,6 +1,9 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"log"
+)
 
 func cliRevList(extfile string) {
 	externals := NewExternals(extfile)
@@ -9,14 +12,14 @@ func cliRevList(extfile string) {
 	count := externals.Count()
 	externals.Foreach(func(url string, info *RepoInfo) {
 		idx = idx + 1
-		log.Printf("=== [%d/%d] %s reversion:\n", idx, count, url)
+		fmt.Printf("=== [%d/%d] %s reversion:\n", idx, count, url)
 		e := NewCvs(url, info)
 		ref, err := e.Revision()
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Printf("    repo ref: %s\n", ref)
-		log.Printf("   configure: %s\n", info.Ref)
+		fmt.Printf("    repo ref: %s\n", ref)
+		fmt.Printf("   configure: %s\n", info.Ref)
 	})
 }
 
@@ -27,7 +30,7 @@ func cliRevSave(extfile string) {
 	count := externals.Count()
 	externals.Foreach(func(url string, info *RepoInfo) {
 		idx = idx + 1
-		log.Printf("=== [%d/%d] check %s revision ...\n", idx, count, url)
+		fmt.Printf("=== [%d/%d] check %s revision ...\n", idx, count, url)
 		e := NewCvs(url, info)
 		ref, err := e.Revision()
 		if err != nil {

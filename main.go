@@ -1,18 +1,25 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 )
 
 func dumpUsage() {
-	log.Println("xrepo usage:")
+	fmt.Print(`usage: xrepo <command> <args>
+
+commands:
+   checkout (co)  checkout every repo to current revision
+   pull           update every repo to newest revision
+   push           push work revision to remote repo
+   rev list       list work revision of every repo
+   rev save       write work revision to externals file
+`)
 }
 
 func main() {
-	log.SetFlags(0)
+	//log.SetFlags(0)
 
-	//var apppath = filepath.Dir(os.Args[0])
 	var (
 		extfile = "externals.yaml"
 		cmd     string
@@ -31,8 +38,6 @@ func main() {
 		subcmd = os.Args[2]
 	}
 
-	log.Println("externals file:", extfile)
-
 	switch cmd {
 	case "checkout":
 		cliCheckout(extfile)
@@ -48,6 +53,8 @@ func main() {
 			cliRevList(extfile)
 		case "save":
 			cliRevSave(extfile)
+		default:
+			dumpUsage()
 		}
 	default:
 		dumpUsage()

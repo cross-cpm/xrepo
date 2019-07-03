@@ -1,11 +1,14 @@
 package main
 
+import "log"
+
 type externals struct {
 	serializer Serializer
 	repos      RepoList
 }
 
 func NewExternals(filename string) *externals {
+	log.Println("externals file:", filename)
 	return &externals{
 		serializer: NewSerializer(filename),
 	}
