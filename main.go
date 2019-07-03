@@ -14,6 +14,8 @@ commands:
    push           push work revision to remote repo
    rev list       list work revision of every repo
    rev save       write work revision to externals file
+
+For additional information, see https://github.com/cross-cpm/xrepo.git
 `)
 }
 
