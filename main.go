@@ -12,6 +12,7 @@ commands:
    checkout (co)  checkout every repo to current revision
    pull           update every repo to newest revision
    push           push work revision to remote repo
+   status         show repo status
    rev list       list work revision of every repo
    rev save       write work revision to externals file
 
@@ -47,6 +48,8 @@ func main() {
 		cliCheckout(extfile)
 	case "pull":
 		cliPull(extfile)
+	case "status":
+		cliStatus(extfile)
 	case "push":
 		cliPush(extfile)
 	case "rev":

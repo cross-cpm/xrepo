@@ -61,3 +61,19 @@ func cliPush(extfile string) {
 		}
 	})
 }
+
+func cliStatus(extfile string) {
+	externals := NewExternals(extfile)
+	externals.Load()
+	idx := 0
+	count := externals.Count()
+	externals.Foreach(func(url string, info *RepoInfo) {
+		idx = idx + 1
+		fmt.Printf("=== [%d/%d] status %s ...\n", idx, count, url)
+		e := NewCvs(url, info)
+		err := e.Status()
+		if err != nil {
+			log.Println(err)
+		}
+	})
+}

@@ -1,4 +1,4 @@
-EN | [中文](README_CN.md)
+EN | [中文](README_zh.md)
 
 xrepo is a multi-repo management for a large project
 

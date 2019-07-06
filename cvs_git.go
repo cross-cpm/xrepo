@@ -99,3 +99,7 @@ func (e *gitCvs) Revision() (string, error) {
 func (e *gitCvs) Push() error {
 	return shell_run_in_dir(e.workdir, "git", "push")
 }
+
+func (e *gitCvs) Status() error {
+	return shell_run_in_dir(e.workdir, "git", "status")
+}

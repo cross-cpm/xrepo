@@ -14,27 +14,21 @@ go get -u -v github.com/cross-cpm/xrepo
 
 创建 externals.json 文件，内容格式如下所示：
 
-```json
-{
-    "https://github.com/felixqin/miniboost.git": {
-        "branch": "master",
-        "ref": "db38c9437d96eac5604376f6e6a16d297f865803",
-        "targets": {
-            "./": [
-                "./externals/miniboost"
-            ]
-        }
-    },
-    "https://github.com/felixqin/zbuild.git": {
-        "branch": "master",
-        "ref": "HEAD",
-        "targets": {
-            "./": [
-                "./externals/zbuild"
-            ]
-        }
-    }
-}
+```yaml
+https://github.com/felixqin/miniboost.git:
+  cvs: git
+  branch: master
+  ref: b08cd2a56696195213040f54368a000d6f23a65e
+  targets:
+    ./:
+    - ./externals/miniboost
+https://github.com/felixqin/zbuild.git:
+  cvs: git
+  branch: master
+  ref: HEAD
+  targets:
+    ./:
+    - ./externals/zbuild
 ```
 
 在 externals.json 同级目录下，执行以下命令，检出所有文件中定义的外部依赖仓库：

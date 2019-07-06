@@ -8,7 +8,7 @@ https://github.com/felixqin/miniboost.git:
 https://github.com/felixqin/zbuild.git:
   cvs: git
   branch: master
-  ref: 3fd443051728de4f30a7955dc15951baa56f4ce2
+  ref: HEAD
   targets:
     ./:
     - ./externals/zbuild

@@ -7,6 +7,7 @@ type Cvs interface {
 	Pull() (string, error)
 	Push() error
 	Revision() (string, error)
+	Status() error
 }
 
 func NewCvs(url string, info *RepoInfo) Cvs {
