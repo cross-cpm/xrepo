@@ -79,6 +79,12 @@ xrepo status
 xrepo rev list
 ```
 
+列出外部仓库当前版本号和文件定义的版本号的差异
+
+```shell
+xrepo rev diff
+```
+
 将外部仓库当前版本号写入定义文件中
 
 ```shell
