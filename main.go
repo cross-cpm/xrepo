@@ -13,6 +13,7 @@ commands:
    pull           update every repo to newest revision
    push           push work revision to remote repo
    status         show repo status
+   rev diff       list work revision of repo version changed
    rev list       list work revision of every repo
    rev save       write work revision to externals file
 
@@ -54,6 +55,8 @@ func main() {
 		cliPush(extfile)
 	case "rev":
 		switch subcmd {
+		case "diff":
+			cliRevDiff(extfile)
 		case "list":
 			cliRevList(extfile)
 		case "save":
