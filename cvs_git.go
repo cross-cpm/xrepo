@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -32,16 +33,19 @@ func (e *gitCvs) initial_checkout() error {
 		return err
 	}
 
-	if e.info.Ref == "HEAD" {
-		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
-		if err != nil {
-			return err
-		}
-	} else {
-		err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Ref)
-		if err != nil {
-			return err
-		}
+	ref := e.info.Ref
+	if ref == "HEAD" {
+		ref = e.info.Branch
+	}
+
+	if ref == "" {
+		return fmt.Errorf("invalid branch or ref!")
+	}
+
+	//log.Println("git checkout", ref)
+	err = shell_run_in_dir(e.workdir, "git", "checkout", ref)
+	if err != nil {
+		return err
 	}
 
 	return nil
