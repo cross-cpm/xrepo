@@ -78,6 +78,13 @@ func (e *gitCvs) update_checkout() error {
 }
 
 func (e *gitCvs) Pull() (string, error) {
+	if _, err := os.Stat(e.workdir); os.IsNotExist(err) {
+		err = shell_run("git", "clone", e.url, e.workdir)
+		if err != nil {
+			return "", err
+		}
+	}
+
 	err := shell_run_in_dir(e.workdir, "git", "checkout", e.info.Branch)
 	if err != nil {
 		return "", err

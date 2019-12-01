@@ -1,14 +1,14 @@
 https://github.com/felixqin/miniboost.git:
   cvs: git
   branch: master
-  ref: b08cd2a56696195213040f54368a000d6f23a65e
+  ref: 91a0645d28335de431e4c67f90f777d8d91cc03a
   targets:
     ./:
     - ./externals/miniboost
 https://github.com/felixqin/zbuild.git:
   cvs: git
   branch: master
-  ref: HEAD
+  ref: 3fd443051728de4f30a7955dc15951baa56f4ce2
   targets:
     ./:
     - ./externals/zbuild
